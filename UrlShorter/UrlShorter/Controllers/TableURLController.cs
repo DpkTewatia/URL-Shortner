@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System;
@@ -9,6 +10,7 @@ using UrlShorter.Models;
 
 namespace UrlShorter.Controllers
 {
+    [Authorize]
     public class TableURLController : Controller
     {
         private readonly IUrlsService _service;
@@ -39,7 +41,7 @@ namespace UrlShorter.Controllers
         public IActionResult AddUrl(UrlTable url)
         {
             _service.AddUrl(url);
-            return Ok("Url added successfully");
+            return Ok("Url add");
         }
 
         [HttpGet]

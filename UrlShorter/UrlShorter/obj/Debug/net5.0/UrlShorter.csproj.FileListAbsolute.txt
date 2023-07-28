@@ -75,3 +75,9 @@ D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\obj\Debug\net5.0\ref\UrlShorter.dl
 D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\obj\Debug\net5.0\Razor\Views\TableURL\Index.cshtml.g.cs
 D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\obj\Debug\net5.0\Razor\Views\TableURL\Create.cshtml.g.cs
 D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\obj\Debug\net5.0\Razor\Views\TableURL\Delete.cshtml.g.cs
+D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\bin\Debug\net5.0\selenium-manager\linux\selenium-manager
+D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\bin\Debug\net5.0\selenium-manager\macos\selenium-manager
+D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\bin\Debug\net5.0\selenium-manager\windows\selenium-manager.exe
+D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\bin\Debug\net5.0\WebDriver.dll
+D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\obj\Debug\net5.0\Razor\Views\Employee\Index.cshtml.g.cs
+D:\Inforce\URL-Shortner\UrlShorter\UrlShorter\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs

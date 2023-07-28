@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,8 +28,17 @@ namespace UrlShorter
         {
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>();
+          
             services.AddScoped<IUrlsService, UrlService>();
             //services.AddScoped<IUserService, UserService>();
+           
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Home/Login";
+                    options.Cookie.Name = "AshProgHelpCookie";
+                });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,8 +58,11 @@ namespace UrlShorter
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {
