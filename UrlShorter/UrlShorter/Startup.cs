@@ -30,7 +30,7 @@ namespace UrlShorter
             services.AddDbContext<AppDbContext>();
           
             services.AddScoped<IUrlsService, UrlService>();
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

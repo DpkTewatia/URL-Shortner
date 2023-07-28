@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UrlShorter.Enums;
 
 namespace UrlShorter.Models
 {
@@ -11,6 +12,8 @@ namespace UrlShorter.Models
         public string Password { get; set; }
 
         [Required]
-        public int RoleId { get; set; }
+        public RoleIdEnum RoleId { get; set; }
+        [Required]
+        public string UserName { get; set; }
     }
 }

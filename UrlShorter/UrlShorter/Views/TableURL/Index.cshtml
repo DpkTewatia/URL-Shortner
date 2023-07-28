@@ -1,30 +1,42 @@
-﻿@model List<UrlTable>
+﻿@using UrlShorter.Models.ViewModels;
+@model List<UrlTableViewModel>
 
 <h1>URL List</h1>
 <table>
     <tr>
-        <th>ID</th>
+        
         <th>Original URL</th>
         <th>Short URL</th>
         <th>Creation Date</th>
-        <th>User ID</th>
-        <th>Actions</th>
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <th>Actions</th>
+        }
     </tr>
     @foreach (var url in Model)
     {
         <tr>
-            <td>@url.Id</td>
+           
             <td>@url.OriginalUrl</td>
             <td>@url.ShortUrl</td>
             <td>@url.CreationDate</td>
-            <td>@url.UserId</td>
-            <td>
-                <form method="get" action="/TableURL/Delete">
-                    <input type="hidden" name="urlId" value="@url.Id" />
-                    <input type="submit" value="Delete" />
-                </form>
-            </td>
-
+           
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (url.AllowDelete)
+                {
+                    <td>
+                        <form method="get" action="/TableURL/Delete">
+                            <input type="hidden" name="urlId" value="@url.Id" />
+                            <input type="submit" value="Delete" />
+                        </form>
+                    </td>
+                }
+                
+            }
+            
+                 
         </tr>
     }
 </table>

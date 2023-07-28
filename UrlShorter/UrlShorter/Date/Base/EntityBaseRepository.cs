@@ -50,6 +50,10 @@ namespace UrlShorter.Date.Base
         {
             return _context.UrlsTabl.FirstOrDefault(u => u.Id == urlId);
         }
+        public UserTable GetByUserName(string userName)
+        {
+            return _context.UsersTabl.FirstOrDefault(n => n.UserName == userName);
+        }
     }
 }
 
