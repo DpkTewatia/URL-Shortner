@@ -1,0 +1,36 @@
+﻿@model UrlTable
+
+@{
+    ViewData["Title"] = "Delete URL";
+    Layout = null; 
+}
+
+<h2>Delete URL</h2>
+<p>Are you sure you want to delete the following URL?</p>
+
+<div>
+    <label>ID:</label>
+    <span>@Model.Id</span>
+</div>
+<div>
+    <label>Original URL:</label>
+    <span>@Model.OriginalUrl</span>
+</div>
+<div>
+    <label>Short URL:</label>
+    <span>@Model.ShortUrl</span>
+</div>
+<div>
+    <label>Creation Date:</label>
+    <span>@Model.CreationDate</span>
+</div>
+<div>
+    <label>User ID:</label>
+    <span>@Model.UserId</span>
+</div>
+
+<form method="post" action="@Url.Action("DeleteConfirmed", "TableURL", new { urlId = Model.Id })">
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-controller="TableURL" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

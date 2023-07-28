@@ -1,0 +1,41 @@
+﻿@model List<UrlTable>
+
+<h1>URL List</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Original URL</th>
+        <th>Short URL</th>
+        <th>Creation Date</th>
+        <th>User ID</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var url in Model)
+    {
+        <tr>
+            <td>@url.Id</td>
+            <td>@url.OriginalUrl</td>
+            <td>@url.ShortUrl</td>
+            <td>@url.CreationDate</td>
+            <td>@url.UserId</td>
+            <td>
+                <form method="get" action="/TableURL/Delete">
+                    <input type="hidden" name="urlId" value="@url.Id" />
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+
+        </tr>
+    }
+</table>
+
+<div style="position : fixed; right: 25px; bottom: 25px;" class="text-white">
+    <a asp-controller="TableURL" asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Add new
+    </a>
+</div>
+
+
+
+
+

@@ -1,0 +1,22 @@
+﻿@model UrlTable
+@{
+    ViewData["Title"] = "Add a new Url";
+}
+<form method="post" action="@Url.Action("AddUrl", "TableURL")">
+    <div>
+        <label for="OriginalUrl">Original URL:</label>
+        <input type="text" id="OriginalUrl" name="OriginalUrl" required />
+    </div>
+    
+    <div>
+        <label for="CreationDate">Creation Date:</label>
+        <input type="date" id="CreationDate" name="CreationDate" required />
+    </div>
+    <div>
+        <label for="UserId">User ID:</label>
+        <input type="text" id="UserId" name="UserId" required />
+    </div>
+    <div>
+        <input type="submit" value="Add URL" />
+    </div>
+</form>
