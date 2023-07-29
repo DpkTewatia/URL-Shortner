@@ -1,5 +1,22 @@
 ﻿@using UrlShorter.Models.ViewModels;
 @model List<UrlTableViewModel>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
 
 <h1>URL List</h1>
 <table>
@@ -41,11 +58,12 @@
     }
 </table>
 
-<div style="position : fixed; right: 25px; bottom: 25px;" class="text-white">
+<div style="position: fixed; right: 25px; bottom: 70px;" class="text-white">
     <a asp-controller="TableURL" asp-action="Create" class="btn btn-success">
         <i class="bi bi-plus-circle"></i> Add new
     </a>
 </div>
+
 
 
 

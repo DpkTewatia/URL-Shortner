@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using UrlShorter.Date.Base;
 using UrlShorter.Date.Services;
 using UrlShorter.Models;
 using Xunit;
-
+using Assert = Xunit.Assert;
 
 namespace TestingRepository
 {
@@ -25,51 +27,116 @@ namespace TestingRepository
         [Fact]
         public void GetUrls_ShouldReturnListOfUrls()
         {
-            // Arrange
+
             var mockSet = new Mock<DbSet<UrlTable>>();
             var mockContext = new Mock<AppDbContext>();
 
-            // Створюємо тестовий список UrlTable, який буде повертатись з методу ToList
+
             var testUrls = new List<UrlTable>
                 {
                     new UrlTable { Id = 1, OriginalUrl = "http://example.com" },
                     new UrlTable { Id = 2, OriginalUrl = "http://test.com" }
                 };
 
-            // Налаштовуємо поведінку методу ToList для повернення тестового списку UrlTable
+
             mockSet.Setup(m => m.ToList()).Returns(testUrls);
-            mockContext.Setup(m => m.UrlsTabl).Returns(mockSet.Object); // Исправлено: "UrlsTabl" -> "UrlsTable"
+            mockContext.Setup(m => m.UrlsTabl).Returns(mockSet.Object);
 
             var urlService = new UrlService(mockContext.Object);
 
-            // Act
+
             var result = urlService.GetUrls();
 
-            // Assert
-            // Перевіряємо, чи метод повернув той самий список UrlTable, який ми налаштували
+
             Assert.Equal(testUrls, result);
         }
 
         [Fact]
         public void GetUrls_ShouldReturnEmptyList_WhenNoUrlsExist()
         {
-            // Arrange
+
             var mockSet = new Mock<DbSet<UrlTable>>();
             var mockContext = new Mock<AppDbContext>();
 
-            // Налаштовуємо поведінку методу ToList для повернення порожнього списку UrlTable (немає Urls)
+
             mockSet.Setup(m => m.ToList()).Returns(new List<UrlTable>());
-            mockContext.Setup(m => m.UrlsTabl).Returns(mockSet.Object); // Исправлено: "UrlsTabl" -> "UrlsTable"
+            mockContext.Setup(m => m.UrlsTabl).Returns(mockSet.Object);
 
             var urlService = new UrlService(mockContext.Object);
 
-            // Act
+
             var result = urlService.GetUrls();
 
-            // Assert
-            // Перевіряємо, чи метод повернув порожній список
+
             Assert.Empty(result);
         }
+
+
+        [Fact]
+        public void DeleteUrl_ShouldRemoveUrl_WhenUrlExists()
+        {
+
+            var urlIdToDelete = 1;
+            var testUrls = new List<UrlTable>
+            {
+                new UrlTable { Id = 1, OriginalUrl = "http://example.com" },
+                new UrlTable { Id = 2, OriginalUrl = "http://test.com" }
+            };
+
+            var mockSet = new Mock<DbSet<UrlTable>>();
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.Provider).Returns(testUrls.AsQueryable().Provider);
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.Expression).Returns(testUrls.AsQueryable().Expression);
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.ElementType).Returns(testUrls.AsQueryable().ElementType);
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.GetEnumerator()).Returns(testUrls.AsQueryable().GetEnumerator());
+
+            var mockContext = new Mock<AppDbContext>();
+            mockContext.Setup(c => c.UrlsTabl).Returns(mockSet.Object);
+
+            var urlService = new UrlService(mockContext.Object);
+
+
+            urlService.DeleteUrl(urlIdToDelete);
+
+
+            mockSet.Verify(m => m.Remove(It.IsAny<UrlTable>()), Times.Once);
+
+
+            mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteUrl_ShouldNotRemove_WhenUrlDoesNotExist()
+        {
+
+            var urlIdToDelete = 3;
+            var testUrls = new List<UrlTable>
+            {
+                new UrlTable { Id = 1, OriginalUrl = "http://example.com" },
+                new UrlTable { Id = 2, OriginalUrl = "http://test.com" }
+            };
+
+            var mockSet = new Mock<DbSet<UrlTable>>();
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.Provider).Returns(testUrls.AsQueryable().Provider);
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.Expression).Returns(testUrls.AsQueryable().Expression);
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.ElementType).Returns(testUrls.AsQueryable().ElementType);
+            mockSet.As<IQueryable<UrlTable>>().Setup(m => m.GetEnumerator()).Returns(testUrls.AsQueryable().GetEnumerator());
+
+            var mockContext = new Mock<AppDbContext>();
+            mockContext.Setup(c => c.UrlsTabl).Returns(mockSet.Object);
+
+            var urlService = new UrlService(mockContext.Object);
+
+
+            urlService.DeleteUrl(urlIdToDelete);
+
+
+            mockSet.Verify(m => m.Remove(It.IsAny<UrlTable>()), Times.Never);
+
+
+            mockContext.Verify(m => m.SaveChanges(), Times.Never);
+        }
+       
+       
     }
 
 }

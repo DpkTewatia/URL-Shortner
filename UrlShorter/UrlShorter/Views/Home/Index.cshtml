@@ -1,8 +1,52 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authorization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
 
-<h1>Authorization</h1>
-For Login :<a asp-action="Login"> Login</a>
-<br /> 
-Secured Page: <a asp-action="Index" asp-controller="Employee">Employee Page</a>
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .links {
+            text-align: center;
+        }
+
+            .links a {
+                display: inline-block;
+                padding: 10px 20px;
+                margin-bottom: 10px;
+                background-color: #4CAF50;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.2s;
+            }
+
+                .links a:hover {
+                    background-color: #45a049;
+                }
+    </style>
+</head>
+<body>
+    <h1>Authorization</h1>
+
+    <div class="links">
+        <p>For Login:</p>
+        <a asp-action="Login">Login</a>
+    </div>
+</body>
+</html>
+
