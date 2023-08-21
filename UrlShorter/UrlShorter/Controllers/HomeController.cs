@@ -47,7 +47,7 @@ namespace UrlShorter.Controllers
 
                     var claims = new List<Claim>
                     {
-                    new Claim(ClaimTypes.Role,  user.RoleId.ToString()), // userId
+                    new Claim(ClaimTypes.Role,  user.RoleId.ToString()), 
                     new Claim(ClaimTypes.UserData, user.UserId.ToString())
                     };
                     var identity = new ClaimsIdentity(
